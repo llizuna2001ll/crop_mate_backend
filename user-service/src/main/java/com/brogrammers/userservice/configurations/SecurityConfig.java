@@ -18,7 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private static final String[] WHITE_LIST_URL = {"api/v1/auth/**"};
+    private static final String[] WHITE_LIST_URL = {"api/v1/auth/**","api/v1/users/resetPasswordRequest/**","api/v1/users/resetPasswordVerification/**"};
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
@@ -38,5 +38,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 
 }

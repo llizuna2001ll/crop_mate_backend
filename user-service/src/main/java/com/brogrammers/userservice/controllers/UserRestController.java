@@ -1,9 +1,9 @@
 package com.brogrammers.userservice.controllers;
 
-import com.brogrammers.userservice.entities.User;
 import com.brogrammers.userservice.DTOs.UserRequest;
 import com.brogrammers.userservice.DTOs.UserResponse;
 import com.brogrammers.userservice.services.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
 
 
 @RestController
@@ -63,6 +65,18 @@ public class UserRestController {
     ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest user){
         UserResponse userResponse = userService.updateUser(user);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/resetPasswordRequest")
+    ResponseEntity<String> resetPasswordRequest(@RequestParam String email) throws MessagingException, UnsupportedEncodingException {
+        userService.resetPasswordRequest(email);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/resetPasswordVerification")
+    ResponseEntity<Boolean> resetPasswordVerification(@RequestParam String email, @RequestParam String code){
+        boolean codeState = userService.resetPasswordVerification(code, email);
+        return new ResponseEntity<>(codeState, HttpStatus.OK);
     }
 
 }

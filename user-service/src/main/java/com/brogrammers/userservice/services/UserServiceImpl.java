@@ -7,11 +7,16 @@ import com.brogrammers.userservice.exceptions.UserNotFoundException;
 import com.brogrammers.userservice.DTOs.UserRequest;
 import com.brogrammers.userservice.DTOs.UserResponse;
 import com.brogrammers.userservice.repositories.UserRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 import static com.brogrammers.userservice.DTOs.UserResponse.toUserResponse;
 
@@ -19,9 +24,12 @@ import static com.brogrammers.userservice.DTOs.UserResponse.toUserResponse;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final JavaMailSender mailSender;
 
-    public UserServiceImpl(UserRepository userRepository) {
+
+    public UserServiceImpl(UserRepository userRepository, JavaMailSender mailSender) {
         this.userRepository = userRepository;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -32,8 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserResponse> getAllUsers(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
-        Page<UserResponse> userResponses = users.map(UserResponse::toUserResponse);
-        return userResponses;
+        return users.map(UserResponse::toUserResponse);
     }
 
     @Override
@@ -66,4 +73,60 @@ public class UserServiceImpl implements UserService {
         User user = User.toUser(updatedUser);
         return UserResponse.toUserResponse(userRepository.save(user));
     }
+
+    @Override
+    public void resetPasswordRequest(String email) throws MessagingException, UnsupportedEncodingException {
+        User user = userRepository.findByEmail(email);
+        if(user == null){
+            throw new  UserNotFoundException("User Not Found");
+        }
+        Random random = new Random();
+        int min = 1000;
+        int max = 9999;
+        String code = String.valueOf(random.nextInt(max - min + 1) + min);
+        sendVerificationEmail(email, user.getUsername(), code);
+        user.setResetPasswordCode(code);
+        userRepository.save(user);
+    }
+
+    @Override
+    public boolean resetPasswordVerification(String code, String email) {
+        User user = userRepository.findByEmail(email);
+        if(user == null){
+            throw new  UserNotFoundException("User Not Found");
+        }
+        else if(!user.getResetPasswordCode().equals(code))
+            return false;
+        else {
+            user.setResetPasswordCode(null);
+            userRepository.save(user);
+            return true;
+        }
+    }
+
+    @Override
+    public void sendVerificationEmail(String email, String username, String code)
+            throws MessagingException, UnsupportedEncodingException {
+
+        String fromAddress = "heptagrammers@gmail.com";
+        String senderName = "CropMate";
+        String subject = "Reset Password";
+        String content = "Dear " + username + ",<br>"
+                + "You requested a confirmation of your password for logging into CropMate<br>"
+                + "This address is associated with the login "+email+"<br>"
+                + "Verification Code: <strong>"+code+"</strong><br>"
+                + "If you did not try to reset your password you can safely ignore this email<br>"
+                + "Crop-Mate";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(email);
+        helper.setSubject(subject);
+        helper.setText(content,true);
+        mailSender.send(message);
+    }
+
+
 }

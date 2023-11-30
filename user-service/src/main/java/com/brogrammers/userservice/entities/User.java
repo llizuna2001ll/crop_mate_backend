@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CollectionId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,8 +46,19 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Roles role;
 
+    @JsonIgnore
+    @Column(nullable = true)
+    private String verificationCode;
+
+    @JsonIgnore
+    @Column(nullable = true)
+    private String resetPasswordCode;
+
+    @JsonIgnore
+    private boolean enabled;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime creationTime = LocalDateTime.now();
+    private LocalDateTime creationTime;
 
     @Transient
     private List<Land> lands = new ArrayList<>();
@@ -79,7 +91,7 @@ public class User implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
 

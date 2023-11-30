@@ -3,8 +3,11 @@ package com.brogrammers.userservice.services;
 import com.brogrammers.userservice.entities.User;
 import com.brogrammers.userservice.DTOs.UserRequest;
 import com.brogrammers.userservice.DTOs.UserResponse;
+import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.io.UnsupportedEncodingException;
 
 public interface UserService {
      UserResponse getUser(Long id);
@@ -13,4 +16,8 @@ public interface UserService {
      UserResponse addAdmin(UserRequest userRequest);
      void deleteUser(Long id);
      UserResponse updateUser(UserRequest user);
+     void resetPasswordRequest(String email) throws MessagingException, UnsupportedEncodingException;
+     boolean resetPasswordVerification(String code, String email);
+     void sendVerificationEmail(String email, String username, String code)
+             throws MessagingException, UnsupportedEncodingException;
 }
