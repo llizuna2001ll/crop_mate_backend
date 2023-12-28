@@ -1,4 +1,4 @@
-package com.brogrammers.userservice.DTOs;
+package com.brogrammers.userservice.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

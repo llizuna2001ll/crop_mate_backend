@@ -1,4 +1,4 @@
-package com.brogrammers.userservice.DTOs;
+package com.brogrammers.userservice.dtos;
 
 import com.brogrammers.userservice.entities.User;
 import com.brogrammers.userservice.enums.Roles;
@@ -25,7 +25,7 @@ public class UserResponse {
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .address(user.getAddress())
+                .address(user.getCity())
                 .contactNumber(user.getContactNumber())
                 .role(user.getRole())
                 .lands(user.getLands())

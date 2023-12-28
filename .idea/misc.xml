@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/crop-information-service/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/discovery-service/pom.xml" />
+        <option value="$PROJECT_DIR$/weather-service/pom.xml" />
       </list>
     </option>
   </component>

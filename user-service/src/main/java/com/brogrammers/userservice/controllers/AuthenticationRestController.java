@@ -1,8 +1,8 @@
 package com.brogrammers.userservice.controllers;
 
-import com.brogrammers.userservice.DTOs.AuthenticationRequest;
-import com.brogrammers.userservice.DTOs.AuthenticationResponse;
-import com.brogrammers.userservice.DTOs.UserRequest;
+import com.brogrammers.userservice.dtos.AuthenticationRequest;
+import com.brogrammers.userservice.dtos.AuthenticationResponse;
+import com.brogrammers.userservice.dtos.UserRequest;
 import com.brogrammers.userservice.services.AuthenticationService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;

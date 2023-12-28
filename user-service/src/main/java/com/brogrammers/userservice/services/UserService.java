@@ -1,8 +1,7 @@
 package com.brogrammers.userservice.services;
 
-import com.brogrammers.userservice.entities.User;
-import com.brogrammers.userservice.DTOs.UserRequest;
-import com.brogrammers.userservice.DTOs.UserResponse;
+import com.brogrammers.userservice.dtos.UserRequest;
+import com.brogrammers.userservice.dtos.UserResponse;
 import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

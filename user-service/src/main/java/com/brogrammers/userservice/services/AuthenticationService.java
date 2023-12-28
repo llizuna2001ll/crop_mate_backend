@@ -1,9 +1,9 @@
 package com.brogrammers.userservice.services;
 
 
-import com.brogrammers.userservice.DTOs.AuthenticationRequest;
-import com.brogrammers.userservice.DTOs.AuthenticationResponse;
-import com.brogrammers.userservice.DTOs.UserRequest;
+import com.brogrammers.userservice.dtos.AuthenticationRequest;
+import com.brogrammers.userservice.dtos.AuthenticationResponse;
+import com.brogrammers.userservice.dtos.UserRequest;
 import com.brogrammers.userservice.entities.User;
 import com.brogrammers.userservice.enums.Roles;
 import com.brogrammers.userservice.exceptions.NonUniqueUsernameException;
@@ -27,16 +27,14 @@ import java.time.LocalDateTime;
 @Service
 public class AuthenticationService {
     private final UserRepository userRepository;
-    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     private final JavaMailSender mailSender;
 
-    public AuthenticationService(UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, JavaMailSender mailSender) {
+    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, JavaMailSender mailSender) {
         this.userRepository = userRepository;
-        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
@@ -49,7 +47,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .contactNumber(request.getContactNumber())
-                .address((request.getAddress()))
+                .city((request.getCity()))
                 .creationTime(LocalDateTime.now())
                 .role(Roles.USER)
                 .verificationCode(RandomString.make(64))

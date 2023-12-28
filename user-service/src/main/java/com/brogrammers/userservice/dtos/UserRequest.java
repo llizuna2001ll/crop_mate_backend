@@ -1,4 +1,4 @@
-package com.brogrammers.userservice.DTOs;
+package com.brogrammers.userservice.dtos;
 
 import com.brogrammers.userservice.entities.User;
 import jakarta.validation.constraints.Email;
@@ -23,8 +23,8 @@ public class UserRequest {
     @Email(message = "Invalid email address")
     private String email;
     @NotBlank(message = "Fill the address field!")
-    private String address;
-    @Pattern(regexp="(^$|[0-9]{10})")
+    private String city;
+    @Pattern(regexp="(^$|[0-9]{10})", message = "Invalid number")
     @NotBlank(message = "Fill contact field!")
     private String contactNumber;
 
@@ -33,7 +33,7 @@ public class UserRequest {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .username(user.getUsername())
-                .address(user.getAddress())
+                .city(user.getCity())
                 .contactNumber(user.getContactNumber())
                 .build();
     }

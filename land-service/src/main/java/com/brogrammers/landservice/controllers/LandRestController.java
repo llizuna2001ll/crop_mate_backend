@@ -21,9 +21,9 @@ public class LandRestController {
         this.landService = landService;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<LandResponse> getLandByUserId(@PathVariable Long userId) {
-        LandResponse landResponse = landService.getLandByUserId(userId);
+    @GetMapping("/{landId}")
+    public ResponseEntity<LandResponse> getLandById(@PathVariable Long landId) {
+        LandResponse landResponse = landService.getLandById(landId);
         return new ResponseEntity<>(landResponse, HttpStatus.OK);
     }
 

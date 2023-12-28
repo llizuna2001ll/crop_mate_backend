@@ -21,8 +21,8 @@ public class LandServiceImpl implements LandService {
     }
 
     @Override
-    public LandResponse getLandByUserId(Long userId) {
-        return LandResponse.toLandResponse(landRepository.findByUserId(userId));
+    public LandResponse getLandById(Long landId) {
+        return LandResponse.toLandResponse(landRepository.findById(landId).orElseThrow(()-> new RuntimeException("Land Not Found")));
     }
 
     @Override

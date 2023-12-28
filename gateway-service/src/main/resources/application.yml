@@ -12,10 +12,34 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1/users/**
-          filters:
-            - AuthenticationFilter
 
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1/auth/**
+
+        - id: weather-service
+          uri: lb://WEATHER-SERVICE
+          predicates:
+            - Path=/api/v1/weather/**
+
+        - id: recommendation-service
+          uri: lb://RECOMMENDATION-SERVICE
+          predicates:
+            - Path=/api/v1/recommendations/**
+
+        - id: land-service
+          uri: lb://LAND-SERVICE
+          predicates:
+            - Path=/api/v1/lands/**
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE

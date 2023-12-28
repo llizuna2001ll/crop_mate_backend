@@ -1,12 +1,11 @@
 package com.brogrammers.userservice.entities;
 import com.brogrammers.userservice.enums.Roles;
 import com.brogrammers.userservice.models.Land;
-import com.brogrammers.userservice.DTOs.UserRequest;
+import com.brogrammers.userservice.dtos.UserRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CollectionId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,7 +37,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private String address;
+    private String city;
 
     @Column(nullable = false)
     private String contactNumber;
@@ -100,7 +99,7 @@ public class User implements UserDetails {
                 .email(userRequest.getEmail())
                 .password(userRequest.getPassword())
                 .username(userRequest.getUsername())
-                .address(userRequest.getAddress())
+                .city(userRequest.getCity())
                 .contactNumber(userRequest.getContactNumber())
                 .build();
     }

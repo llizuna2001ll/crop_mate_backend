@@ -4,8 +4,8 @@ import com.brogrammers.userservice.entities.User;
 import com.brogrammers.userservice.enums.Roles;
 import com.brogrammers.userservice.exceptions.NonUniqueUsernameException;
 import com.brogrammers.userservice.exceptions.UserNotFoundException;
-import com.brogrammers.userservice.DTOs.UserRequest;
-import com.brogrammers.userservice.DTOs.UserResponse;
+import com.brogrammers.userservice.dtos.UserRequest;
+import com.brogrammers.userservice.dtos.UserResponse;
 import com.brogrammers.userservice.repositories.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-import static com.brogrammers.userservice.DTOs.UserResponse.toUserResponse;
+import static com.brogrammers.userservice.dtos.UserResponse.toUserResponse;
 
 @Service
 public class UserServiceImpl implements UserService {

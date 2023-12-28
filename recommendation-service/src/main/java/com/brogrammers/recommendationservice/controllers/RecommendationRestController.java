@@ -2,6 +2,7 @@ package com.brogrammers.recommendationservice.controllers;
 
 import com.brogrammers.recommendationservice.DTOs.RecommendationRequest;
 import com.brogrammers.recommendationservice.DTOs.RecommendationResponse;
+import com.brogrammers.recommendationservice.services.RecommendationBotService;
 import com.brogrammers.recommendationservice.services.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,11 @@ import java.util.List;
 public class RecommendationRestController {
 
     private final RecommendationService recommendationService;
-
+    private final RecommendationBotService recommendationBotService;
     @Autowired
-    public RecommendationRestController(RecommendationService recommendationService) {
+    public RecommendationRestController(RecommendationService recommendationService, RecommendationBotService recommendationBotService) {
         this.recommendationService = recommendationService;
+        this.recommendationBotService = recommendationBotService;
     }
 
     @GetMapping("/{landId}")
@@ -44,5 +46,7 @@ public class RecommendationRestController {
         recommendationService.deleteRecommendation(recommendationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }
 

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface LandService {
-    LandResponse getLandByUserId(Long userId);
+    LandResponse getLandById(Long land);
     List<LandResponse> getAllLandsByUserId(Long userId);
     LandResponse addLand(LandRequest landRequest);
     LandResponse updateLand(LandRequest landRequest, Long landId);

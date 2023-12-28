@@ -30,9 +30,7 @@ public class Recommendation {
 
     public static Recommendation toRecommendation(RecommendationRequest recommendationRequest){
         return Recommendation.builder()
-                .adviceType(recommendationRequest.getAdviceType())
                 .landId(recommendationRequest.getLandId())
-                .advice(recommendationRequest.getAdvice())
                 .build();
     }
 }

@@ -1,6 +1,5 @@
-package com.brogrammers.userservice.DTOs;
+package com.brogrammers.userservice.dtos;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 
 

@@ -1,7 +1,7 @@
 package com.brogrammers.userservice.controllers;
 
-import com.brogrammers.userservice.DTOs.UserRequest;
-import com.brogrammers.userservice.DTOs.UserResponse;
+import com.brogrammers.userservice.dtos.UserRequest;
+import com.brogrammers.userservice.dtos.UserResponse;
 import com.brogrammers.userservice.services.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -39,6 +39,7 @@ public class UserRestController {
 
     @GetMapping("/{id}")
     ResponseEntity<UserResponse> getUser(@PathVariable Long id){
+
         UserResponse user = userService.getUser(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
